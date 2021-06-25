@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "730337300278",
+    "project_id": "beco-9fab4",
+    "storage_bucket": "beco-9fab4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730337300278:android:3ccc6943b637abbf976d97",
+        "android_client_info": {
+          "package_name": "com.example.beco_driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730337300278-ej35ufhefk8oc2knp8n9e8uic5fkg5kh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm0aTxU1UM7QL4PW50jQ77P6trJIY3Ee4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730337300278-ej35ufhefk8oc2knp8n9e8uic5fkg5kh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730337300278:android:2282638584ca9919976d97",
+        "android_client_info": {
+          "package_name": "com.example.beco_passenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730337300278-ej35ufhefk8oc2knp8n9e8uic5fkg5kh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm0aTxU1UM7QL4PW50jQ77P6trJIY3Ee4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730337300278-ej35ufhefk8oc2knp8n9e8uic5fkg5kh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
