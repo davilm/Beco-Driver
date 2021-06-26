@@ -6,7 +6,18 @@ import 'package:beco_driver/views/ChatScreen/widgets/Messages.dart';
 import 'package:beco_driver/views/ChatScreen/widgets/NewMessage.dart';
 
 class ChatScreen extends StatefulWidget {
-  ChatScreen({Key? key}) : super(key: key);
+  final String name;
+  final String driverUid;
+  final String passengerUid;
+  final String imageUrl;
+
+  ChatScreen(
+    this.name,
+    this.driverUid,
+    this.passengerUid,
+    this.imageUrl, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -16,14 +27,6 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     final double widthMargin = MediaQuery.of(context).size.width / 40;
-    final double heightMargin = MediaQuery.of(context).size.height / 42;
-    final double heightMarginTitle = MediaQuery.of(context).size.width / 11;
-
-    final String title = "Erick";
-
-    final _controller = TextEditingController();
-
-    final bool belongsToMe = false;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -58,7 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title, style: AppTextStyles.upTitle),
+                    Text(widget.name, style: AppTextStyles.upTitle),
                     SizedBox(height: 5),
                     Container(
                       width: 30,
@@ -68,7 +71,11 @@ class _ChatScreenState extends State<ChatScreen> {
                     SizedBox(height: 30),
                     Container(
                       height: MediaQuery.of(context).size.height / 1.5,
-                      child: Messages(),
+                      child: Messages(
+                        widget.driverUid,
+                        widget.passengerUid,
+                        widget.imageUrl,
+                      ),
                     ),
                     NewMessage(),
                   ],
