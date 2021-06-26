@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:beco_driver/views/ListChatScreen/widgets/DataGetter.dart';
-import 'package:beco_driver/views/ListChatScreen/widgets/ListTileWidget.dart';
-
 import 'package:beco_driver/core/core.dart';
-import 'package:beco_driver/GetRoutes.dart';
+import 'package:beco_driver/views/ListChatScreen/widgets/ListTileWidget.dart';
 
 class ListChatScreen extends StatefulWidget {
   final String driverUid;
@@ -46,8 +43,6 @@ class _ListChatScreenState extends State<ListChatScreen> {
   @override
   Widget build(BuildContext context) {
     final double widthMargin = MediaQuery.of(context).size.width / 40;
-
-    DataGetter().routePassengers();
 
     return Scaffold(
       appBar: AppBar(
