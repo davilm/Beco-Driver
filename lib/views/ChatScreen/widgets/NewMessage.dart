@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class NewMessage extends StatefulWidget {
   NewMessage({Key? key}) : super(key: key);
@@ -14,22 +13,19 @@ class _NewMessageState extends State<NewMessage> {
   final _controller = TextEditingController();
   String _enteredMessage = '';
 
+  String driverUid = "pNKw0MEwouc2ajzaXeYd";
+  String passengerUid = "JIbVoYwhRGVQs5AaEuOOBDBQU3J2";
+
   void _sendMessage() async {
     FocusScope.of(context).unfocus();
-
-    final user = FirebaseAuth.instance.currentUser;
-
-    final userData = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user!.uid)
-        .get();
 
     FirebaseFirestore.instance.collection('chat').add({
       'text': _enteredMessage,
       'createdAt': Timestamp.now(),
-      'userId': user.uid,
-      'userName': userData['name'],
-      // 'userImage': userData['imageUrl'],
+      'userId': driverUid,
+      'userName': "Davi Leal",
+      'driverUid': driverUid,
+      'passengerUid': passengerUid,
     });
 
     _enteredMessage = '';
@@ -43,7 +39,6 @@ class _NewMessageState extends State<NewMessage> {
       height: 50,
       decoration: BoxDecoration(
         color: Color(0xffF4F4F7),
-        // color: Colors.blueGrey,
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextField(

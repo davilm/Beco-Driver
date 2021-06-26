@@ -6,21 +6,26 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:beco_driver/views/ChatScreen/widgets/MessageBubble.dart';
 
 class Messages extends StatefulWidget {
-  Messages({Key? key}) : super(key: key);
+  final String driverUid;
+  final String passengerUid;
+  final String imageUrl;
+
+  Messages(this.driverUid, this.passengerUid, this.imageUrl, {Key? key})
+      : super(key: key);
 
   @override
   State<Messages> createState() => _MessagesState();
 }
 
 class _MessagesState extends State<Messages> {
-  final user = FirebaseAuth.instance.currentUser;
-
   @override
   Widget build(BuildContext context) {
     return Container(
       child: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('chat')
+            .where("driverUid", isEqualTo: widget.driverUid)
+            .where("passengerUid", isEqualTo: widget.passengerUid)
             .orderBy('createdAt', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
@@ -29,17 +34,21 @@ class _MessagesState extends State<Messages> {
               child: CircularProgressIndicator(),
             );
           }
+          if (snapshot.hasError) {
+            return Text("Something went wrong $snapshot.error");
+          }
+
           final chatDocs = snapshot.data!.docs;
           return ListView.builder(
             reverse: true,
             itemCount: chatDocs.length,
             itemBuilder: (context, index) => MessageBubble(
               chatDocs[index]['text'],
-              "https://randomuser.me/api/portraits/women/95.jpg",
+              widget.imageUrl,
               // chatDocs[index]['userImage'],
               // "15:31",
               chatDocs[index]['createdAt'],
-              chatDocs[index]['userId'] == user!.uid,
+              chatDocs[index]['userId'] == widget.driverUid,
               key: ValueKey(chatDocs[index].id),
             ),
           );

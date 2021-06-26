@@ -1,0 +1,37 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class Authentication {
+  final _auth = FirebaseAuth.instance;
+
+  late UserCredential userCredential;
+
+  Future<void> signUp(
+    String email,
+    String name,
+    String cpf,
+    String password,
+  ) async {
+    userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email, password: password);
+
+    final userData = {
+      'name': name,
+      'cpf': cpf,
+      'email': email,
+      'imageUrl':
+          "https://firebasestorage.googleapis.com/v0/b/beco-9fab4.appspot.com/o/face-light.png?alt=media&token=ceaba8cb-80ec-4f20-a56f-976f16d22216",
+    };
+
+    await FirebaseFirestore.instance
+        .collection('drivers')
+        .doc(userCredential.user!.uid)
+        .set(userData);
+  }
+
+  Future<void> signIn(String email, String password) async {
+    userCredential = await _auth.signInWithEmailAndPassword(
+        email: email, password: password);
+    print(userCredential);
+  }
+}
