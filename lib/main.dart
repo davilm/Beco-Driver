@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:beco_driver/views/ChatScreen/ChatScreen.dart';
+import 'package:beco_driver/views/Splashscreen/Splashscreen.dart';
+import 'package:beco_driver/GetRoutes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
   runApp(App());
 }
 
@@ -50,14 +50,14 @@ class _AppState extends State<App> {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, userSnapshot) {
                 if (userSnapshot.hasData) {
-                  return ChatScreen();
+                  return GetRoutes();
                 } else {
-                  return ChatScreen();
+                  return GetRoutes();
                 }
               },
             );
           }
-          return Center(child: CircularProgressIndicator());
+          return SplashScreen();
         },
       ),
     );
