@@ -3,8 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewMessage extends StatefulWidget {
-  NewMessage({Key? key}) : super(key: key);
+  final String driverName;
+  final String driverUid;
+  final String passengerUid;
 
+  NewMessage(
+    this.driverName,
+    this.driverUid,
+    this.passengerUid, {
+    Key? key,
+  }) : super(key: key);
   @override
   _NewMessageState createState() => _NewMessageState();
 }
@@ -22,10 +30,10 @@ class _NewMessageState extends State<NewMessage> {
     FirebaseFirestore.instance.collection('chat').add({
       'text': _enteredMessage,
       'createdAt': Timestamp.now(),
-      'userId': driverUid,
-      'userName': "Davi Leal",
+      'userId': widget.driverUid,
+      'userName': widget.driverName,
       'driverUid': driverUid,
-      'passengerUid': passengerUid,
+      'passengerUid': widget.passengerUid,
     });
 
     _enteredMessage = '';

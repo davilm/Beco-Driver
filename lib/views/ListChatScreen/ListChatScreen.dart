@@ -4,6 +4,7 @@ import 'package:beco_driver/core/core.dart';
 import 'package:beco_driver/views/ListChatScreen/widgets/ListTileWidget.dart';
 
 class ListChatScreen extends StatefulWidget {
+  final String driverName;
   final String driverUid;
   final String firstPassenger;
   final String firstPassengerImageUrl;
@@ -19,6 +20,7 @@ class ListChatScreen extends StatefulWidget {
   final String fourthPassengerUid;
 
   ListChatScreen(
+    this.driverName,
     this.driverUid,
     this.firstPassenger,
     this.firstPassengerImageUrl,
@@ -82,6 +84,7 @@ class _ListChatScreenState extends State<ListChatScreen> {
                     SizedBox(height: 30),
                     ListTileWidget(
                       widget.firstPassenger,
+                      widget.driverName,
                       "Vou atrasar um pouco",
                       widget.firstPassengerImageUrl,
                       "3:30 AM",
@@ -93,6 +96,7 @@ class _ListChatScreenState extends State<ListChatScreen> {
                     SizedBox(height: 15),
                     ListTileWidget(
                       widget.secondPassenger,
+                      widget.driverName,
                       "Cheguei!",
                       widget.secondPassengerImageUrl,
                       "3:30 AM",
@@ -104,6 +108,7 @@ class _ListChatScreenState extends State<ListChatScreen> {
                     SizedBox(height: 15),
                     ListTileWidget(
                       widget.thirdPassenger,
+                      widget.driverName,
                       "Nova mensagem",
                       widget.thirdPassengerImageUrl,
                       "3:30 AM",
@@ -115,6 +120,7 @@ class _ListChatScreenState extends State<ListChatScreen> {
                     SizedBox(height: 15),
                     ListTileWidget(
                       widget.fourthPassenger,
+                      widget.driverName,
                       "Nova mensagem",
                       widget.fourthPassengerImageUrl,
                       "3:30 AM",

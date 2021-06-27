@@ -59,7 +59,10 @@ class GetRoutes extends StatelessWidget {
           String fourthPassengerUid =
               data["passengers"]["fourthPassenger"]["uid"];
 
+          String driverName = data["driverName"];
+
           return ListChatScreen(
+            driverName,
             driverUid,
             firstPassenger,
             firstPassengerImageUrl,

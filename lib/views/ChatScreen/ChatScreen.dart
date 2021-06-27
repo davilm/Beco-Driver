@@ -6,13 +6,15 @@ import 'package:beco_driver/views/ChatScreen/widgets/Messages.dart';
 import 'package:beco_driver/views/ChatScreen/widgets/NewMessage.dart';
 
 class ChatScreen extends StatefulWidget {
-  final String name;
+  final String passengerName;
+  final String driverName;
   final String driverUid;
   final String passengerUid;
   final String imageUrl;
 
   ChatScreen(
-    this.name,
+    this.passengerName,
+    this.driverName,
     this.driverUid,
     this.passengerUid,
     this.imageUrl, {
@@ -61,7 +63,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.name, style: AppTextStyles.upTitle),
+                    Text(widget.passengerName, style: AppTextStyles.upTitle),
                     SizedBox(height: 5),
                     Container(
                       width: 30,
@@ -77,7 +79,11 @@ class _ChatScreenState extends State<ChatScreen> {
                         widget.imageUrl,
                       ),
                     ),
-                    NewMessage(),
+                    NewMessage(
+                      widget.driverName,
+                      widget.driverUid,
+                      widget.passengerUid,
+                    ),
                   ],
                 ),
               ),
