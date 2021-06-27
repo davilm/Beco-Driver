@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ListTileWidget extends StatelessWidget {
-  final String name;
+  final String passengerName;
+  final String driverName;
   final String subTitle;
   final String imageUrl;
   final String time;
@@ -12,7 +13,8 @@ class ListTileWidget extends StatelessWidget {
   final String passengerUid;
 
   const ListTileWidget(
-    this.name,
+    this.passengerName,
+    this.driverName,
     this.subTitle,
     this.imageUrl,
     this.time,
@@ -31,7 +33,7 @@ class ListTileWidget extends StatelessWidget {
         radius: 25,
       ),
       title: Text(
-        name,
+        passengerName,
         style: GoogleFonts.montserrat(
           color: Color(0xff15192C),
           fontSize: 14,
@@ -80,8 +82,14 @@ class ListTileWidget extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                ChatScreen(name, driverUid, passengerUid, imageUrl, key: key),
+            builder: (context) => ChatScreen(
+              passengerName,
+              driverName,
+              driverUid,
+              passengerUid,
+              imageUrl,
+              key: key,
+            ),
           ),
         ),
       },
