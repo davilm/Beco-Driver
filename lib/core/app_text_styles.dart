@@ -53,6 +53,21 @@ class AppTextStyles {
     fontSize: 12,
     fontWeight: FontWeight.w600,
   );
+  static final TextStyle beVietnam12MediumWhite = GoogleFonts.beVietnam(
+    color: Color(0xffffffff),
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+  );
+  static final TextStyle beVietnam12BoldWhite = GoogleFonts.beVietnam(
+    color: Color(0xffffffff),
+    fontSize: 12,
+    fontWeight: FontWeight.w700,
+  );
+  static final TextStyle montserrat12MediumDark = GoogleFonts.montserrat(
+    color: Color(0xff15192C),
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+  );
   static final TextStyle beVietnam20SemiboldGrey = GoogleFonts.beVietnam(
     color: Color(0xffD0D2DA),
     fontSize: 20,
