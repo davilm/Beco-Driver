@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:beco_driver/views/ListChatScreen/ListChatScreen.dart';
 import 'package:beco_driver/views/Splashscreen/Splashscreen.dart';
 
-class GetRoutes extends StatelessWidget {
+class GetCurrentRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CollectionReference routes =
