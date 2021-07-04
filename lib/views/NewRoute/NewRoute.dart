@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 import 'package:beco_driver/core/core.dart';
 import 'package:beco_driver/api/FirestoreRoutes.dart';
-
-import 'package:intl/intl.dart';
 
 class NewRoute extends StatefulWidget {
   NewRoute({Key? key}) : super(key: key);
@@ -108,7 +108,8 @@ class _NewRouteState extends State<NewRoute> {
         ),
         actions: [
           Container(
-            margin: EdgeInsets.only(top: 20, right: 35, bottom: 12),
+            margin: EdgeInsets.only(top: 20, right: 35, bottom: 23),
+            width: 37,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Color(0xff00B7FE),
@@ -148,7 +149,7 @@ class _NewRouteState extends State<NewRoute> {
       ),
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.only(left: widthMargin, top: 12),
+          // padding: EdgeInsets.only(left: widthMargin, top: 12),
           child: ListView(
             children: [
               Padding(
