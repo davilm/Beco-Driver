@@ -68,6 +68,16 @@ class AppTextStyles {
     fontSize: 12,
     fontWeight: FontWeight.w500,
   );
+  static final TextStyle montserrat20BoldDark = GoogleFonts.montserrat(
+    color: Color(0xff15192C),
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+  );
+  static final TextStyle montserrat20RegularDark = GoogleFonts.montserrat(
+    color: Color(0xff15192C),
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+  );
   static final TextStyle beVietnam20SemiboldGrey = GoogleFonts.beVietnam(
     color: Color(0xffD0D2DA),
     fontSize: 20,
