@@ -65,7 +65,27 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - assets/images/Login.jpeg
+    - assets/images/face-light.png
+    - assets/images/face-dark.png
+    - assets/images/config-light.png
+    - assets/images/config-dark.png
+    - assets/images/bell-light.png
+    - assets/images/bell-dark.png
+    - assets/images/moon-light.png
+    - assets/images/moon-dark.png
+    - assets/images/travel-light.png
+    - assets/images/travel-dark.png
+    - assets/images/signout-light.png
+    - assets/images/signout-dark.png
+    - assets/images/language-light.png
+    - assets/images/language-dark.png
+    - assets/images/help-light.png
+    - assets/images/help-dark.png
+    - assets/images/garden-city.png
+    - assets/images/confirm.png
+    - assets/images/chat.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
