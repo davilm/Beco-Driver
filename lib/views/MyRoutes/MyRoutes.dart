@@ -27,7 +27,7 @@ class _MyRoutesState extends State<MyRoutes> {
           padding: EdgeInsets.all(15),
           child: IconButton(
             onPressed: () => {
-              // Navigator.pop(context),
+              Navigator.pop(context),
             },
             icon: Icon(
               Icons.arrow_back_ios,
