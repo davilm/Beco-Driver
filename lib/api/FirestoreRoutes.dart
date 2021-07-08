@@ -13,10 +13,8 @@ Future<void> addRoute(
 
   await routes
       .add({
-        "route": {
-          "startTrip": startTrip,
-          "endTrip": endTrip,
-        },
+        "startTrip": startTrip,
+        "endTrip": endTrip,
         "date": date,
         "price": travelPrice,
         "driverName": driverName,
