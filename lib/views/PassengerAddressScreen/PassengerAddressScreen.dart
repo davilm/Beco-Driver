@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:beco_driver/core/core.dart';
 
 import 'package:beco_driver/views/TripInfoScreen/TripInfoScreen.dart';
+import 'package:beco_driver/views/PassengerAddressScreen/widgets/PassengersAddressWidget.dart';
 
 class PassengerAddressScreen extends StatefulWidget {
   PassengerAddressScreen({Key? key}) : super(key: key);
@@ -62,45 +63,22 @@ class _PassengerAddressScreenState extends State<PassengerAddressScreen> {
                           color: Color(0xffD0D2DA)),
                     ),
                   ),
-                  Text('De Av. da Universidade, 2710',
-                      style: AppTextStyles.montserrat14MediumDark),
-                  Text('para Avenida 13 de Maio, 2081',
-                      style: AppTextStyles.montserrat10MediumGrey),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 1,
-                        color: Color(0xffD0D2DA)),
+                  PassengersAddressWidget(
+                    'De Av. da Universidade, 2710',
+                    'para Avenida 13 de Maio, 2081',
                   ),
-                  Text('De Avenida 13 de Maio, 2081',
-                      style: AppTextStyles.montserrat14MediumDark),
-                  Text('para Rua Jorge Dumar, 1703',
-                      style: AppTextStyles.montserrat10MediumGrey),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 1,
-                        color: Color(0xffD0D2DA)),
+                  PassengersAddressWidget(
+                    'De Avenida 13 de Maio, 2081',
+                    'para Rua Jorge Dumar, 1703',
                   ),
-                  Text('De Rua Jorge Dumar, 1703',
-                      style: AppTextStyles.montserrat14MediumDark),
-                  Text('para Av. Washington Soares, 1321',
-                      style: AppTextStyles.montserrat10MediumGrey),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 1,
-                        color: Color(0xffD0D2DA)),
+                  PassengersAddressWidget(
+                    'De Rua Jorge Dumar, 1703',
+                    'para Av. Washington Soares, 1321',
                   ),
-                  Text('De Av. Washington Soares, 1321',
-                      style: AppTextStyles.montserrat14MediumDark),
-                  Text('para Av. Santos Dumont, 3131',
-                      style: AppTextStyles.montserrat10MediumGrey),
-                  SizedBox(height: 5),
-                  SizedBox(height: 30),
+                  PassengersAddressWidget(
+                    'De Av. Washington Soares, 1321',
+                    'para Av. Santos Dumont, 3131',
+                  ),
                 ],
               ),
             ),
