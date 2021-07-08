@@ -86,7 +86,7 @@ class _RouteCardState extends State<RouteCard> {
           Padding(
             padding: EdgeInsets.only(right: 15),
             child: Text(
-              "R\$125",
+              "R\$ ${widget.travelPrice}",
               style: AppTextStyles.montserrat12MediumDark,
             ),
           ),
