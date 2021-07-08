@@ -26,11 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
         iconTheme: IconThemeData(
           color: Colors.black,
         ),
-        leading: Icon(
-          Icons.menu,
-          size: 24,
-          color: Colors.black,
-        ),
       ),
       drawer: DrawerWidget(),
       body: SafeArea(
