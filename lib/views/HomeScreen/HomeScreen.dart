@@ -1,7 +1,9 @@
-import 'package:beco_driver/views/HomeScreen/widgets/DrawerWidget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:beco_driver/core/core.dart';
+
+import 'package:beco_driver/views/HomeScreen/widgets/DrawerWidget.dart';
+import 'package:beco_driver/views/PassengerAddressScreen/PassengerAddressScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -22,6 +24,11 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+        leading: Icon(
+          Icons.menu,
+          size: 24,
           color: Colors.black,
         ),
       ),
@@ -54,7 +61,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   child: TextButton(
-                    onPressed: () => {},
+                    onPressed: () => {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PassengerAddressScreen()))
+                    },
                     child: Text("Iniciar Próxima viagem",
                         style: AppTextStyles.montserrat12MediumDark),
                   ),
