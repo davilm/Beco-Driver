@@ -1,10 +1,12 @@
+import 'package:beco_driver/views/ChooseSign/ChooseSign.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:beco_driver/views/HomeScreen/HomeScreen.dart';
+import 'package:beco_driver/views/NewRoute/NewRoute.dart';
 import 'package:beco_driver/views/Splashscreen/Splashscreen.dart';
-import 'package:beco_driver/GetRoutes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,9 +52,14 @@ class _AppState extends State<App> {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, userSnapshot) {
                 if (userSnapshot.hasData) {
-                  return GetRoutes();
+                  // return NewRoute();
+                  // return MyRoutes();
+                  return HomeScreen();
                 } else {
-                  return GetRoutes();
+                  return ChooseSign();
+                  // return ListChatScreen();
+                  // return NewRoute();
+                  // return MyRoutes();
                 }
               },
             );

@@ -6,6 +6,11 @@ class Authentication {
 
   late UserCredential userCredential;
 
+  Future<String> signOut() async {
+    await _auth.signOut();
+    return "Sign Out";
+  }
+
   Future<void> signUp(
     String email,
     String name,
@@ -29,9 +34,13 @@ class Authentication {
         .set(userData);
   }
 
-  Future<void> signIn(String email, String password) async {
-    userCredential = await _auth.signInWithEmailAndPassword(
-        email: email, password: password);
-    print(userCredential);
+  Future<String> signIn(String email, String password) async {
+    try {
+      userCredential = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      return "Signed in";
+    } on FirebaseAuthException catch (e) {
+      return e.message.toString();
+    }
   }
 }
