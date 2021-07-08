@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import '/core/core.dart';
 
 import 'package:beco_driver/api/Authentication.dart';
+import '/core/core.dart';
 
-// import 'package:beco_driver/views/ChooseSign/ChooseSign.dart';
+import 'package:beco_driver/views/ChooseSign/ChooseSign.dart';
+import 'package:beco_driver/views/MyRoutes/MyRoutes.dart';
 import 'package:beco_driver/views/HomeScreen/widgets/ChartWidget.dart';
-// import 'package:beco_driver/views/ConfigurationScreen/ConfigurationScreen.dart';
 
 import 'package:beco_driver/shared/widgets/ArrowButtonWidget.dart';
 import 'package:beco_driver/shared/widgets/InfoCardWidget.dart';
@@ -19,14 +19,14 @@ class DrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final image = AppImages.faceLight;
 
-    final double heightMarginTitle = MediaQuery.of(context).size.width / 7;
+    final double heightMarginTitle = MediaQuery.of(context).size.width / 5;
     final double widthMargin = MediaQuery.of(context).size.width / 40;
     final double widthMarginBody = MediaQuery.of(context).size.width / 8;
 
     final String firstName = "David";
     final String lastName = "Clerisseau";
 
-    final String myTravels = "Minhas viagens";
+    final String myTravels = "Minhas rotas";
     final String settings = "Configurações";
 
     final String joined = "Entrou";
@@ -51,10 +51,6 @@ class DrawerWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(
-                  onPressed: () => {Navigator.pop(context)},
-                  icon: Icon(Icons.arrow_back_ios, size: 20),
-                ),
                 SizedBox(height: heightMarginTitle),
                 Row(
                   children: [
@@ -123,11 +119,11 @@ class DrawerWidget extends StatelessWidget {
                         child: SizedBox(),
                       ),
                       ArrowButtonWidget(() => {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => MyTravelsScreen()),
-                            // ),
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyRoutes()),
+                            ),
                           }),
                     ],
                   ),
@@ -171,13 +167,13 @@ class DrawerWidget extends StatelessWidget {
                     child: ElevatedButton(
                       style: raisedButtonStyle,
                       onPressed: () async {
-                        // String sign = await Authentication().signOut();
-                        // if (sign == "Sign Out") {
-                        //   Navigator.push(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //           builder: (context) => ChooseSign()));
-                        // } else {}
+                        String sign = await Authentication().signOut();
+                        if (sign == "Sign Out") {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChooseSign()));
+                        } else {}
                       },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
