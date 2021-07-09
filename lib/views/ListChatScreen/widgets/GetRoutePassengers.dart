@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -27,20 +28,24 @@ class GetRoutePassengers extends StatelessWidget {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
 
-          return ListView.builder(
-            itemCount: data['passengersList'].length,
-            itemBuilder: (context, index) => ListTileWidget(
-              data['passengersList'][index]['name'],
-              data['driverName'],
-              "Envie uma mensagem!",
-              data['passengersList'][index]['imageUrl'],
-              "3:30 AM",
-              1,
-              data['driverUid'],
-              data['passengersList'][index]['uid'],
-              key: ValueKey(data['passengersList']),
-            ),
-          );
+          try {
+            return ListView.builder(
+              itemCount: data['passengersList'].length,
+              itemBuilder: (context, index) => ListTileWidget(
+                data['passengersList'][index]['name'],
+                data['driverName'],
+                "Envie uma mensagem!",
+                data['passengersList'][index]['imageUrl'],
+                "3:30 AM",
+                1,
+                data['driverUid'],
+                data['passengersList'][index]['uid'],
+                key: ValueKey(data['passengersList']),
+              ),
+            );
+          } catch (e) {
+            return Center(child: Text("nenhum passageiro"));
+          }
         }
 
         return Center(child: CircularProgressIndicator());
