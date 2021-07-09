@@ -23,7 +23,7 @@ class _GetAllRoutesInfoState extends State<GetAllRoutesInfo> {
         stream: FirebaseFirestore.instance
             .collection('routes')
             .where("driverUid", isEqualTo: widget.driverUid)
-            .orderBy('date')
+            .orderBy('date', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
