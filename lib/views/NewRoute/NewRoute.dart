@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,10 +22,19 @@ class _NewRouteState extends State<NewRoute> {
   String endTrip = "";
   var date;
   String travelPrice = "";
-  String driverName = "Jim Obrien";
-  String driverImageUrl =
-      "https://firebasestorage.googleapis.com/v0/b/beco-9fab4.appspot.com/o/face-light.png?alt=media&token=ceaba8cb-80ec-4f20-a56f-976f16d22216";
-  String driverUid = "pNKw0MEwouc2ajzaXeYd";
+
+  String? driverName;
+  String? driverPhotoURL;
+  String? driverUid;
+
+  void _loadCurrentUserData() {
+    final _auth = FirebaseAuth.instance;
+
+    final currentUser = _auth.currentUser;
+    driverUid = currentUser!.uid;
+    driverName = currentUser.displayName;
+    driverPhotoURL = currentUser.photoURL;
+  }
 
   Widget buildStartTrip() => TextFormField(
         style: AppTextStyles.beVietnam14SemiboldGrey,
@@ -46,11 +56,25 @@ class _NewRouteState extends State<NewRoute> {
         onChanged: (value) => endTrip = value,
       );
 
+  errorSnack(message, color) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+        ),
+        duration: Duration(seconds: 5),
+        backgroundColor: color,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final double widthMargin = MediaQuery.of(context).size.width / 40;
 
     final String title = "Nova Rota";
+
+    _loadCurrentUserData();
 
     Future pickDate() async {
       final initialDate = DateTime.now();
@@ -125,7 +149,7 @@ class _NewRouteState extends State<NewRoute> {
                       date,
                       travelPrice,
                       driverName,
-                      driverImageUrl,
+                      driverPhotoURL,
                       driverUid,
                     ),
                     setState(() {
@@ -134,6 +158,8 @@ class _NewRouteState extends State<NewRoute> {
                       date = null;
                       travelPrice = "";
                     }),
+                    Navigator.pop(context),
+                    errorSnack("Sucesso: Rota adicionada ", Colors.green),
                   }
               },
               icon: Icon(
