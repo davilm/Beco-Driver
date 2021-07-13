@@ -1,6 +1,6 @@
 import 'package:beco_driver/models/geocoding_model.dart';
+import 'package:beco_driver/models/reverse_geocoding_model.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:beco_driver/.env.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -12,13 +12,13 @@ class GeocodingRepository {
 
   GeocodingRepository({Dio? dio}) : _dio = dio ?? Dio();
 
-  Future<Geocoding> getLatLng({
-    @required LatLng? latlng,
+  Future<Geocoding> getAddress({
+    required LatLng latlng,
   }) async {
     final response = await _dio.get(
       _baseUrl,
       queryParameters: {
-        'latlng': '${latlng!.latitude},${latlng.longitude}',
+        'latlng': '${latlng.latitude},${latlng.longitude}',
         'key': googleAPIKey,
       },
     );
@@ -26,6 +26,24 @@ class GeocodingRepository {
       print('${latlng.latitude},${latlng.longitude}');
       print(response.statusCode);
       return Geocoding.fromMap(response.data);
+    }
+    return Future.error('Ops, problem with google api');
+  }
+
+  Future<ReverseGeocoding> getLatLng({
+    required String address,
+  }) async {
+    final response = await _dio.get(
+      _baseUrl,
+      queryParameters: {
+        'address': '$address',
+        'key': googleAPIKey,
+      },
+    );
+    if (response.statusCode == 200) {
+      print('$address');
+      print(response.statusCode);
+      return ReverseGeocoding.fromMap(response.data);
     }
     return Future.error('Ops, problem with google api');
   }
