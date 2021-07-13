@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final double widthMargin = MediaQuery.of(context).size.width / 40;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
         toolbarHeight: 80,
@@ -58,9 +59,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: TextButton(
                     onPressed: () => {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PassengerAddressScreen()))
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PassengerAddressScreen(
+                              selectedRoute: 'Gwo9mVet7JJMi2Je8yRw'),
+                        ),
+                      ),
                     },
                     child: Text("Iniciar Próxima viagem",
                         style: AppTextStyles.montserrat12MediumDark),
