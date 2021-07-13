@@ -5,12 +5,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:beco_driver/views/ListChatScreen/widgets/ListTileWidget.dart';
 
 class GetRoutePassengers extends StatelessWidget {
+  final String selectedRoute;
+
+  GetRoutePassengers({
+    required this.selectedRoute,
+    Key? key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     CollectionReference routes =
         FirebaseFirestore.instance.collection('routes');
 
-    final String selectedRoute = "Gwo9mVet7JJMi2Je8yRw";
+    // final String selectedRoute = "Gwo9mVet7JJMi2Je8yRw";
 
     return FutureBuilder<DocumentSnapshot>(
       future: routes.doc(selectedRoute).get(),
