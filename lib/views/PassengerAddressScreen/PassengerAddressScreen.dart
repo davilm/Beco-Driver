@@ -1,3 +1,4 @@
+import 'package:beco_driver/models/directions_model.dart';
 import 'package:beco_driver/views/PassengerAddressScreen/widgets/GetCurrentRouteInfo.dart';
 import 'package:beco_driver/views/PassengerAddressScreen/widgets/MyMapWidget.dart';
 import 'package:beco_driver/views/TripInfoScreen/widgets/TripInfoBuilder.dart';
@@ -19,6 +20,8 @@ class PassengerAddressScreen extends StatefulWidget {
 
 class _PassengerAddressScreenState extends State<PassengerAddressScreen> {
   String endTrip = 'void';
+  // late Directions info;
+
   @override
   Widget build(BuildContext context) {
     final double widthMargin = MediaQuery.of(context).size.width / 40;
@@ -53,6 +56,13 @@ class _PassengerAddressScreenState extends State<PassengerAddressScreen> {
                 height: MediaQuery.of(context).size.height / 2.2,
                 child: MyMapWidget(
                   endTrip: endTrip,
+                  resetInfo: 'continue',
+                  infoTripScreen: false,
+                  // sendInfo: (info) {
+                  //   setState(() {
+                  //     this.info = info;
+                  //   });
+                  // },
                 ),
               ),
               SizedBox(height: 10),
@@ -120,6 +130,7 @@ class _PassengerAddressScreenState extends State<PassengerAddressScreen> {
                       MaterialPageRoute(
                         builder: (context) => TripInfoBuilder(
                           selectedRoute: widget.selectedRoute,
+                          // info: info,
                         ),
                       ),
                     );
