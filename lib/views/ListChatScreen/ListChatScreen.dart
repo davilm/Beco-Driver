@@ -5,7 +5,12 @@ import 'package:beco_driver/core/core.dart';
 import 'package:beco_driver/views/ListChatScreen/widgets/GetRoutePassengers.dart';
 
 class ListChatScreen extends StatefulWidget {
-  ListChatScreen({Key? key}) : super(key: key);
+  final String selectedRoute;
+
+  ListChatScreen({
+    required this.selectedRoute,
+    Key? key,
+  }) : super(key: key);
 
   @override
   _ListChatScreenState createState() => _ListChatScreenState();
@@ -48,7 +53,9 @@ class _ListChatScreenState extends State<ListChatScreen> {
               SizedBox(height: 30),
               Container(
                 height: MediaQuery.of(context).size.height / 1.5,
-                child: GetRoutePassengers(),
+                child: GetRoutePassengers(
+                  selectedRoute: widget.selectedRoute,
+                ),
               ),
             ],
           ),
