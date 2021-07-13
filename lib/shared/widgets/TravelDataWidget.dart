@@ -1,14 +1,18 @@
 import 'package:beco_driver/core/core.dart';
+import 'package:beco_driver/models/directions_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TravelDataWidget extends StatelessWidget {
+  // final Directions totalDistance;
   final String myCityName;
   final String endTrip;
   final Timestamp date;
 
-  const TravelDataWidget({
+  const TravelDataWidget(
+      // this.totalDistance,
+      {
     required this.myCityName,
     required this.endTrip,
     required this.date,
@@ -88,7 +92,7 @@ class TravelDataWidget extends StatelessWidget {
                       ),
                       SizedBox(height: 3),
                       Text(
-                        "Nov 14, 18:27",
+                        "",
                         style: AppTextStyles.montserrat10RegularGrey,
                       ),
                     ],
@@ -100,7 +104,8 @@ class TravelDataWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "212 km",
+                        // "${totalDistance.totalDistance}",
+                        "212km",
                         style: AppTextStyles.montserrat10SemiboldGrey,
                       ),
                       SizedBox(width: 8),
@@ -110,7 +115,8 @@ class TravelDataWidget extends StatelessWidget {
                       ),
                       SizedBox(width: 8),
                       Text(
-                        "3 h  47 min",
+                        // "${totalDistance.totalDuration}",
+                        "3 h 47 min",
                         style: AppTextStyles.montserrat10SemiboldGrey,
                       ),
                     ],
