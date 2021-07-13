@@ -15,8 +15,17 @@ const CameraPosition _initialCameraPosition =
 
 class MyMapWidget extends StatefulWidget {
   final String endTrip;
+  final String resetInfo;
+  final bool infoTripScreen;
+  // final Function sendInfo;
 
-  const MyMapWidget({required this.endTrip, Key? key});
+  const MyMapWidget({
+    required this.endTrip,
+    required this.resetInfo,
+    required this.infoTripScreen,
+    // required this.sendInfo,
+    Key? key,
+  });
 
   @override
   State<StatefulWidget> createState() => MyMapWidgetState();
@@ -49,6 +58,9 @@ class MyMapWidgetState extends State<MyMapWidget> {
   @override
   void initState() {
     _addMyLocationMarker();
+    if (widget.infoTripScreen) {
+      _addDestinationMarker();
+    }
     // super.dispose();
   }
 
@@ -126,6 +138,7 @@ class MyMapWidgetState extends State<MyMapWidget> {
       markers[markerId] = marker;
       _info = directions;
     });
+    // widget.sendInfo(_info);
   }
 
   _addMyLocationMarker() async {
@@ -228,7 +241,12 @@ class MyMapWidgetState extends State<MyMapWidget> {
 
   @override
   Widget build(BuildContext context) {
-    _addDestinationMarker();
+    // String reset = widget.resetInfo;
+
+    // if (!widget.infoTripScreen || reset != 'continue') {
+    //   reset = 'void';
+    //   _addDestinationMarker();
+    // }
     return Column(
       children: [
         Expanded(
@@ -255,34 +273,57 @@ class MyMapWidgetState extends State<MyMapWidget> {
                 //   _addDestinationMarker(pos);
                 // },
               ),
-              if (_info != null)
+              if (!widget.infoTripScreen)
                 Positioned(
-                  top: 45,
-                  left: MediaQuery.of(context).size.width / 3,
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-                    decoration: BoxDecoration(
-                      color: Color(0xff15192C),
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black26,
-                          offset: Offset(0, 2),
-                          blurRadius: 6,
+                  bottom: 10,
+                  right: 10,
+                  child: FloatingActionButton(
+                    backgroundColor: Color(0xff15192C),
+                    foregroundColor: Colors.white,
+                    onPressed: () => _addDestinationMarker(),
+                    child: const Icon(Icons.center_focus_strong),
+                  ),
+                ),
+              // if (widget.infoTripScreen)
+              //   Positioned(
+              //     top: 10,
+              //     right: 10,
+              //     child: FloatingActionButton(
+              //       backgroundColor: Color(0xff15192C),
+              //       foregroundColor: Colors.white,
+              //       onPressed: () => _addDestinationMarker(),
+              //       child: const Icon(Icons.center_focus_strong),
+              //     ),
+              //   ),
+              if (_info != null)
+                if (widget.resetInfo != 'void')
+                  Positioned(
+                    top: 45,
+                    left: MediaQuery.of(context).size.width / 3,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 6, horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: Color(0xff15192C),
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black26,
+                            offset: Offset(0, 2),
+                            blurRadius: 6,
+                          ),
+                        ],
+                      ),
+                      child: Text(
+                        '${_info!.totalDistance}, ${_info!.totalDuration}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xffffffff),
                         ),
-                      ],
-                    ),
-                    child: Text(
-                      '${_info!.totalDistance}, ${_info!.totalDuration}',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xffffffff),
                       ),
                     ),
                   ),
-                ),
             ],
           ),
         ),
