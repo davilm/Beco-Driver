@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:beco_driver/core/core.dart';
 
 class PassengersAddressWidget extends StatelessWidget {
-  final String current;
+  final String name;
   final String destination;
 
-  const PassengersAddressWidget(this.current, this.destination, {Key? key})
+  const PassengersAddressWidget(this.name, this.destination, {Key? key})
       : super(key: key);
 
   @override
@@ -14,8 +14,9 @@ class PassengersAddressWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(current, style: AppTextStyles.montserrat14MediumDark),
-        Text(destination, style: AppTextStyles.montserrat10MediumGrey),
+        Text("Busque $name ", style: AppTextStyles.montserrat10MediumGrey),
+        SizedBox(height: 5),
+        Text("$destination", style: AppTextStyles.montserrat14MediumDark),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: Container(
