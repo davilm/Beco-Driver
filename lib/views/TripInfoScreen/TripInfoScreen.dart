@@ -1,4 +1,6 @@
 import 'package:beco_driver/core/core.dart';
+import 'package:beco_driver/models/directions_model.dart';
+import 'package:beco_driver/views/HomeScreen/HomeScreen.dart';
 import 'package:beco_driver/views/ListChatScreen/ListChatScreen.dart';
 import 'package:beco_driver/shared/widgets/TravelDataWidget.dart';
 import 'package:beco_driver/views/PassengerAddressScreen/widgets/MyMapWidget.dart';
@@ -6,13 +8,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class TripInfoScreen extends StatefulWidget {
+  // final Directions totalDistance;
   final String myCityName;
   final String endTrip;
   final String travelPrice;
   final Timestamp date;
   final String selectedRoute;
 
-  TripInfoScreen({
+  TripInfoScreen(
+      // this.totalDistance,
+      {
     required this.myCityName,
     required this.endTrip,
     required this.travelPrice,
@@ -126,6 +131,9 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                           width: MediaQuery.of(context).size.width,
                           child: MyMapWidget(
                             endTrip: widget.endTrip,
+                            resetInfo: 'void',
+                            infoTripScreen: true,
+                            // sendInfo: () {},
                           ),
                         ),
                       ),
@@ -157,6 +165,7 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: widthMargin * 5),
                   child: TravelDataWidget(
+                    // widget.totalDistance,
                     myCityName: widget.myCityName,
                     endTrip: widget.endTrip,
                     date: widget.date,
@@ -186,7 +195,11 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                       "Encerrar viagem",
                       style: AppTextStyles.montserrat14SemiboldWhite,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      );
+                    },
                   ),
                 ),
               ),
