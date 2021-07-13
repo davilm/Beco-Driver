@@ -1,16 +1,17 @@
-import 'package:beco_driver/views/TripInfoScreen/TripInfoScreen.dart';
+import 'package:beco_driver/models/directions_model.dart';
 import 'package:flutter/material.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:beco_driver/views/PassengerAddressScreen/widgets/PassengersAddressWidget.dart';
+import 'package:beco_driver/views/TripInfoScreen/TripInfoScreen.dart';
 
 class TripInfoBuilder extends StatefulWidget {
   final String selectedRoute;
+  // final Directions info;
 
   TripInfoBuilder({
     required this.selectedRoute,
+    // required this.info,
     Key? key,
   }) : super(key: key);
 
@@ -23,15 +24,6 @@ class _TripInfoBuilderState extends State<TripInfoBuilder> {
   Widget build(BuildContext context) {
     CollectionReference routes =
         FirebaseFirestore.instance.collection('routes');
-
-    // String _loadCurrentUser() {
-    //   final _auth = FirebaseAuth.instance;
-
-    //   final currentUser = _auth.currentUser;
-    //   return currentUser!.uid;
-    // }
-
-    // String driverUid = _loadCurrentUser();
 
     return Container(
       child: FutureBuilder<DocumentSnapshot>(
@@ -51,6 +43,7 @@ class _TripInfoBuilderState extends State<TripInfoBuilder> {
             Map<String, dynamic> data =
                 snapshot.data!.data() as Map<String, dynamic>;
             return TripInfoScreen(
+              // widget.info,
               myCityName: data['startTrip'],
               endTrip: data['endTrip'],
               travelPrice: data['price'].toString(),
