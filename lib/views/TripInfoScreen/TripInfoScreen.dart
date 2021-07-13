@@ -1,10 +1,25 @@
 import 'package:beco_driver/core/core.dart';
 import 'package:beco_driver/views/ListChatScreen/ListChatScreen.dart';
 import 'package:beco_driver/shared/widgets/TravelDataWidget.dart';
+import 'package:beco_driver/views/PassengerAddressScreen/widgets/MyMapWidget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class TripInfoScreen extends StatefulWidget {
-  TripInfoScreen({Key? key}) : super(key: key);
+  final String myCityName;
+  final String endTrip;
+  final String travelPrice;
+  final Timestamp date;
+  final String selectedRoute;
+
+  TripInfoScreen({
+    required this.myCityName,
+    required this.endTrip,
+    required this.travelPrice,
+    required this.date,
+    required this.selectedRoute,
+    Key? key,
+  }) : super(key: key);
 
   @override
   _TripInfoScreenState createState() => _TripInfoScreenState();
@@ -54,7 +69,11 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
               onPressed: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ListChatScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => ListChatScreen(
+                      selectedRoute: widget.selectedRoute,
+                    ),
+                  ),
                 ),
               },
               child: Padding(
@@ -100,16 +119,12 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                   padding: EdgeInsets.symmetric(horizontal: widthMargin * 2),
                   child: Stack(
                     children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height / 3.6,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Color(0xff545FFF),
-                        ),
-                        child: Image(
-                          image: AssetImage(AppImages.gardenCity),
-                          fit: BoxFit.fill,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height / 3.6,
+                          width: MediaQuery.of(context).size.width,
+                          child: MyMapWidget(),
                         ),
                       ),
                       Positioned(
@@ -127,7 +142,7 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                           ),
                           child: Center(
                             child: Text(
-                              "R\$ 125",
+                              "R\$ ${widget.travelPrice}",
                               style: AppTextStyles.montserrat13BoldWhite,
                             ),
                           ),
@@ -139,7 +154,11 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                 SizedBox(height: 30),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: widthMargin * 5),
-                  child: TravelDataWidget(),
+                  child: TravelDataWidget(
+                    myCityName: widget.myCityName,
+                    endTrip: widget.endTrip,
+                    date: widget.date,
+                  ),
                 ),
               ],
             ),
