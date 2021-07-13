@@ -6,9 +6,11 @@ import 'package:beco_driver/views/PassengerAddressScreen/widgets/PassengersAddre
 
 class GetCurrentRouteInfo extends StatefulWidget {
   final String selectedRoute;
+  final Function getAddress;
 
   GetCurrentRouteInfo({
     required this.selectedRoute,
+    required this.getAddress,
     Key? key,
   }) : super(key: key);
 
@@ -43,8 +45,9 @@ class _GetCurrentRouteInfoState extends State<GetCurrentRouteInfo> {
               padding: EdgeInsets.all(0),
               itemCount: data['passengersList'].length,
               itemBuilder: (context, index) => PassengersAddressWidget(
-                data['passengersList'][index]['name'],
-                data['passengersList'][index]['address'],
+                name: data['passengersList'][index]['name'],
+                destination: data['passengersList'][index]['address'],
+                getAddress: widget.getAddress,
                 key: ValueKey(data['passengersList']),
               ),
             );

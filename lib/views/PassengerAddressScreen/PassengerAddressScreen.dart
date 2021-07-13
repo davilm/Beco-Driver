@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:beco_driver/core/core.dart';
 
-import 'package:beco_driver/views/TripInfoScreen/TripInfoScreen.dart';
-import 'package:beco_driver/views/PassengerAddressScreen/widgets/PassengersAddressWidget.dart';
-
 class PassengerAddressScreen extends StatefulWidget {
   final String selectedRoute;
 
@@ -21,6 +18,7 @@ class PassengerAddressScreen extends StatefulWidget {
 }
 
 class _PassengerAddressScreenState extends State<PassengerAddressScreen> {
+  String endTrip = 'void';
   @override
   Widget build(BuildContext context) {
     final double widthMargin = MediaQuery.of(context).size.width / 40;
@@ -53,7 +51,9 @@ class _PassengerAddressScreenState extends State<PassengerAddressScreen> {
             children: [
               Container(
                 height: MediaQuery.of(context).size.height / 2.2,
-                child: MyMapWidget(),
+                child: MyMapWidget(
+                  endTrip: endTrip,
+                ),
               ),
               SizedBox(height: 10),
               Container(
@@ -79,7 +79,12 @@ class _PassengerAddressScreenState extends State<PassengerAddressScreen> {
                       child: Container(
                         height: MediaQuery.of(context).size.height / 3,
                         child: GetCurrentRouteInfo(
-                            selectedRoute: widget.selectedRoute),
+                            selectedRoute: widget.selectedRoute,
+                            getAddress: (address) {
+                              setState(() {
+                                this.endTrip = address;
+                              });
+                            }),
                       ),
                     ),
                   ],

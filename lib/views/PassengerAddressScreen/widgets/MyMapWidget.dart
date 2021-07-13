@@ -2,36 +2,32 @@ import 'package:flutter/material.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_geocoder/geocoder.dart';
-
-import 'package:beco_driver/core/core.dart';
-import 'package:beco_driver/api/FirestoreRoutes.dart';
 
 import 'package:beco_driver/controllers/directions_repository.dart';
 import 'package:beco_driver/controllers/geocoding_repository.dart';
 import 'package:beco_driver/controllers/geo_location_controller.dart';
 
 import 'package:beco_driver/models/directions_model.dart';
+import 'package:beco_driver/models/reverse_geocoding_model.dart';
 
 const CameraPosition _initialCameraPosition =
     CameraPosition(target: LatLng(-12.0529923, -58.3138234), zoom: 4.0);
 
 class MyMapWidget extends StatefulWidget {
-  const MyMapWidget({Key? key});
+  final String endTrip;
+
+  const MyMapWidget({required this.endTrip, Key? key});
 
   @override
   State<StatefulWidget> createState() => MyMapWidgetState();
 }
 
 class MyMapWidgetState extends State<MyMapWidget> {
-  MyMapWidgetState();
-
   static final LatLng center = const LatLng(-33.86711, 151.1947171);
 
   GoogleMapController? _googleMapController;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   MarkerId? selectedMarker;
-  int _markerIdCounter = 1;
 
   LatLng myPosition = LatLng(0, 0);
   late Marker marker;
@@ -39,6 +35,16 @@ class MyMapWidgetState extends State<MyMapWidget> {
 
   var myAddress;
   var myCityName;
+  var fullAddress;
+  var routeDistance;
+  var routeDuration;
+  var directions;
+
+  String startTrip = "";
+  late Timestamp date;
+  String price = "";
+  String selectedRoute = "void";
+  int myFlag = 0;
 
   @override
   void initState() {
@@ -56,7 +62,7 @@ class MyMapWidgetState extends State<MyMapWidget> {
   }
 
   Future<void> _getMyAddress() async {
-    var address = await GeocodingRepository().getLatLng(latlng: myPosition);
+    var address = await GeocodingRepository().getAddress(latlng: myPosition);
 
     setState(() {
       myAddress = address.formattedAddress;
@@ -64,28 +70,35 @@ class MyMapWidgetState extends State<MyMapWidget> {
     });
   }
 
-  void _addDestinationMarker(LatLng pos) async {
-    final int markerCount = markers.length;
+  Future<ReverseGeocoding> _getLatLng(String pos) async {
+    var latLng = await GeocodingRepository().getLatLng(address: pos);
 
-    if (markerCount == 2) {
+    print("latLng: $latLng.latLng");
+    return latLng;
+  }
+
+  LatLng midPoint(double lat1, double long1, double lat2, double long2) {
+    return new LatLng((lat1 + lat2) / 2, (long1 + long2) / 2);
+  }
+
+  void _addDestinationMarker() async {
+    if (widget.endTrip == 'void') {
       return;
     }
+    var pos = await _getLatLng(widget.endTrip);
 
-    final String markerIdVal = 'marker_id_$_markerIdCounter';
-    _markerIdCounter++;
+    LatLng endTripPosition = pos.latLng;
+
+    final String markerIdVal = 'marker_id_2';
+
     final MarkerId markerId = MarkerId(markerIdVal);
 
     final Marker marker = Marker(
       markerId: markerId,
-      position: pos,
-      infoWindow: markerCount == 0
-          ? InfoWindow(
-              title: "Inicio da rota",
-              snippet: 'Sua viagem começa a partir daqui')
-          : InfoWindow(title: "Destino", snippet: 'Esse é seu destino'),
-      icon: markerCount == 0
-          ? BitmapDescriptor.defaultMarker
-          : BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+      position: endTripPosition,
+      infoWindow:
+          InfoWindow(title: widget.endTrip, snippet: 'Esse é seu destino'),
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
       onTap: () {
         _onMarkerTapped(markerId);
       },
@@ -94,28 +107,25 @@ class MyMapWidgetState extends State<MyMapWidget> {
       },
     );
 
-    final directions = await DirectionsRepository()
-        .getDirections(origin: myPosition, destination: pos);
+    directions = await DirectionsRepository()
+        .getDirections(origin: myPosition, destination: endTripPosition);
+
+    _googleMapController?.animateCamera(
+      CameraUpdate.newCameraPosition(CameraPosition(
+        target: midPoint(
+          myPosition.latitude,
+          myPosition.longitude,
+          endTripPosition.latitude,
+          endTripPosition.longitude,
+        ),
+        zoom: 11.0,
+      )),
+    );
 
     setState(() {
       markers[markerId] = marker;
       _info = directions;
     });
-  }
-
-  convertCoordinatesToAddress() async {
-    try {
-      final coordinates = new Coordinates(1.10, 45.50);
-      var addresses =
-          await Geocoder.local.findAddressesFromCoordinates(coordinates);
-      var first = addresses.first;
-      print("${first.featureName} : ${first.addressLine}");
-      // latitude: myPosition.latitude,
-      // longitude: myPosition.longitude,
-
-    } catch (e) {
-      print(e);
-    }
   }
 
   _addMyLocationMarker() async {
@@ -204,13 +214,6 @@ class MyMapWidgetState extends State<MyMapWidget> {
     }
   }
 
-  String startTrip = "";
-  String endTrip = "";
-  late Timestamp date;
-  String price = "";
-  String selectedRoute = "void";
-  int myFlag = 0;
-
   errorSnack(message, color) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -225,6 +228,7 @@ class MyMapWidgetState extends State<MyMapWidget> {
 
   @override
   Widget build(BuildContext context) {
+    _addDestinationMarker();
     return Column(
       children: [
         Expanded(
@@ -247,9 +251,9 @@ class MyMapWidgetState extends State<MyMapWidget> {
                           .toList(),
                     ),
                 },
-                onLongPress: (LatLng pos) {
-                  _addDestinationMarker(pos);
-                },
+                // onLongPress: (LatLng pos) {
+                //   _addDestinationMarker(pos);
+                // },
               ),
               if (_info != null)
                 Positioned(

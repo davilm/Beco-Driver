@@ -124,7 +124,9 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                         child: Container(
                           height: MediaQuery.of(context).size.height / 3.6,
                           width: MediaQuery.of(context).size.width,
-                          child: MyMapWidget(),
+                          child: MyMapWidget(
+                            endTrip: widget.endTrip,
+                          ),
                         ),
                       ),
                       Positioned(
