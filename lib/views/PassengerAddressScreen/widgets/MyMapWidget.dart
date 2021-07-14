@@ -284,17 +284,17 @@ class MyMapWidgetState extends State<MyMapWidget> {
                     child: const Icon(Icons.center_focus_strong),
                   ),
                 ),
-              // if (widget.infoTripScreen)
-              //   Positioned(
-              //     top: 10,
-              //     right: 10,
-              //     child: FloatingActionButton(
-              //       backgroundColor: Color(0xff15192C),
-              //       foregroundColor: Colors.white,
-              //       onPressed: () => _addDestinationMarker(),
-              //       child: const Icon(Icons.center_focus_strong),
-              //     ),
-              //   ),
+              if (widget.infoTripScreen)
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: FloatingActionButton(
+                    backgroundColor: Color(0xff15192C),
+                    foregroundColor: Colors.white,
+                    onPressed: () => _addDestinationMarker(),
+                    child: const Icon(Icons.center_focus_strong),
+                  ),
+                ),
               if (_info != null)
                 if (widget.resetInfo != 'void')
                   Positioned(
